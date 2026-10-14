@@ -252,10 +252,10 @@ def execute_pipeline(topic: str, max_nodes: int, source: str):
     root = root_info["title"]
     
     if source == "Wikidata":
-        related_raw = api.get_article_links(root_info["id"], max_nodes)
+        related_raw = api.get_article_links(root_info["id"], max_nodes * 2)
         details = api.get_article_details(related_raw)
     else:
-        related_raw = api.get_article_links(root, max_nodes)
+        related_raw = api.get_article_links(root, max_nodes * 2)
         details = api.get_article_details(tuple([root] + related_raw))
 
     root_key = root.casefold()
@@ -285,7 +285,7 @@ with st.sidebar:
     st.markdown('<div class="sidebar-title">⚙️ Control Panel</div>', unsafe_allow_html=True)
     
     api_source = st.radio("Data Engine", ["Wikipedia", "Wikidata"])
-    max_concepts = st.slider("Nodes Limit", min_value=5, max_value=30, value=15)
+    max_concepts = st.slider("Nodes Limit", min_value=5, max_value=60, value=25)
     
     st.markdown("<hr style='border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 15px 0;'>", unsafe_allow_html=True)
     
